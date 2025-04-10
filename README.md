@@ -24,7 +24,7 @@ lib/
 │   ├── cadastro_endereco_view.dart
 │   ├── cadastro_usuario_view.dart
 │   ├── editar_endereco_view.dart
-│   ├── enderecos_page.dart
+│   ├── enderecos_view.dart
 │   ├── list_usuarios_view.dart
 │   └── welcome_view.dart
 └── main.dart
@@ -47,7 +47,7 @@ lib/
 
 - `WelcomeView`: Tela inicial com login e acesso ao cadastro
 - `CadastroUsuarioView`: Tela de criação de usuário
-- `EnderecosPage`: Página principal após login com acesso à lista de endereços
+- `EnderecosView`: Página principal após login com acesso à lista de endereços
 - `CadastroEnderecoView`, `EditarEnderecoView`: Telas para adicionar e editar endereços
 - `ListUsuariosView`: Exibe todos os usuários cadastrados
 
@@ -94,7 +94,7 @@ lib/
 
 ## 👤 Autor
 
-Desenvolvido por **Lucas Santos** — Estudante de Sistemas de Informação apaixonado por mobile e organização limpa de projetos Flutter.
+Desenvolvido por **Lucas Santos**
 
 ---
 
