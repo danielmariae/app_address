@@ -67,8 +67,8 @@ lib/
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repo.git
-   cd seu-repo
+   git clone[https://github.com/danielmariae/app_address.git](https://github.com/danielmariae/app_address).git
+   cd app_address
    ```
 
 2. **Instale as dependências**:
