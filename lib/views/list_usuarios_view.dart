@@ -10,23 +10,49 @@ class ListUsuariosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Usuários Cadastrados')),
+      appBar: AppBar(title: const Text('Usuários Cadastrados')),
       body: FutureBuilder<List<Usuario>>(
         future: _controller.listarUsuarios(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar usuários'));
+            return const Center(child: Text('Erro ao carregar usuários'));
           }
           final usuarios = snapshot.data ?? [];
           return ListView.builder(
             itemCount: usuarios.length,
             itemBuilder: (context, index) {
               final usuario = usuarios[index];
-              return ListTile(
-                title: Text(usuario.login),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          usuario.login,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'ID: ${usuario.id}',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
           );

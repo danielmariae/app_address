@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cadastro_usuario_view.dart';
-import 'enderecos_page.dart'; // redireciona para a tela principal após login
+import 'enderecos_view.dart'; // redireciona para a tela principal após login
 import '../controllers/usuario_controller.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -24,7 +24,7 @@ class _WelcomeViewState extends State<WelcomeView> {
     if (usuario != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const EnderecosPage()),
+        MaterialPageRoute(builder: (_) => const EnderecosView()),
       );
     } else {
       showDialog(
