@@ -4,6 +4,16 @@ Este é um projeto Flutter simples que permite o cadastro de usuários, autentic
 
 ---
 
+## Print 1: Crud de Endereços
+![alt text](<doc/img/Captura de tela 2025-04-11 081829.png>)
+
+## Print 2: Lista de Usuários
+![alt text](<doc/img/Captura de tela 2025-04-11 081842.png>)
+
+## Print 3: Tela de Cadastro de Endereços
+![alt text](<doc/img/Captura de tela 2025-04-11 083041.png>)
+
+---
 ## 📁 Estrutura de Pastas
 
 ```
