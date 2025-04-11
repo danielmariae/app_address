@@ -3,53 +3,69 @@ import 'package:http/http.dart' as http;
 import '../models/endereco_model.dart';
 
 class EnderecoService {
-  static final EnderecoService _instance = EnderecoService._internal();
+  static const String baseUrl = 'https://67f9066e094de2fe6ea02a60.mockapi.io/endereco';
 
-  factory EnderecoService() {
-    return _instance;
-  }
-
-  EnderecoService._internal();
-
-  final List<Endereco> _enderecos = [];
-  int _ultimoId = 0;
-
-  Future<Endereco> getEnderecoByCep(String cep) async {
-    final url = 'https://viacep.com.br/ws/$cep/json/';
-    final response = await http.get(Uri.parse(url));
-
+  Future<List<Endereco>> getEnderecos() async {
+    final response = await http.get(Uri.parse(baseUrl));
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      var endereco = Endereco.fromJson(data);
-      endereco.cep = cep;
-      return endereco;
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((e) => Endereco.fromJson(e)).toList();
     } else {
-      throw Exception('Erro ao buscar endereço com CEP: $cep');
+      throw Exception('Erro ao buscar endereços');
     }
   }
 
-  Future<void> createEndereco(Endereco endereco) async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _ultimoId++;
-    endereco.id = _ultimoId;
-    _enderecos.add(endereco);
-  }
+  Future<Endereco?> getEnderecoByCep(String cep) async {
+  final url = Uri.parse('https://viacep.com.br/ws/$cep/json/');
 
-  Future<List<Endereco>> getEnderecos() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    return _enderecos;
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+
+    if (data.containsKey('erro')) return null;
+
+    return Endereco(
+      // id: , // Será gerado pela API do mockapi
+      cep: data['cep'] ?? '',
+      logradouro: data['logradouro'] ?? '',
+      bairro: data['bairro'] ?? '',
+      uf: data['uf'] ?? '',
+      localidade: data['localidade'] ?? '',
+      numeroLote: '', // preenchido manualmente pelo usuário
+      complemento: '', // preenchido manualmente pelo usuário
+    );
+  } else {
+    return null;
+  }
+}
+
+  Future<void> addEndereco(Endereco endereco) async {
+    final response = await http.post(
+      Uri.parse(baseUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(endereco.toJson()),
+    );
+    if (response.statusCode != 201) {
+      throw Exception('Erro ao criar endereço');
+    }
   }
 
   Future<void> updateEndereco(Endereco endereco) async {
-    await Future.delayed(Duration(milliseconds: 500));
-    int index = _enderecos.indexWhere((e) => e.id == endereco.id);
-    if (index != -1) {
-      _enderecos[index] = endereco;
+    final response = await http.put(
+      Uri.parse('$baseUrl/${endereco.id}'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(endereco.toJson()),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Erro ao atualizar endereço');
     }
   }
 
-  Future<void> deleteEndereco(int id) async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _enderecos.removeWhere((e) => e.id == id);
+  Future<void> deleteEndereco(String id) async {
+    final response = await http.delete(Uri.parse('$baseUrl/$id'));
+    if (response.statusCode != 200) {
+      throw Exception('Erro ao deletar endereço');
+    }
   }
 }

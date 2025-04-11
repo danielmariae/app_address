@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'views/welcome_view.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AddressApp',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: WelcomeView(), // Tela pública inicial
+      home: WelcomeScreen(), // Tela pública inicial
     );
   }
 }

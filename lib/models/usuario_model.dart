@@ -1,5 +1,5 @@
 class Usuario {
-  int? id;
+  String? id;
   String login;
   String senha; // Armazena o hash da senha
 

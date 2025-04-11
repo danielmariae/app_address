@@ -1,6 +1,6 @@
 class Endereco {
-  int? id;
-  String? cep; // Para busca na API ViaCEP
+  String? id;
+  String? cep;
   String logradouro;
   String numeroLote;
   String complemento;
@@ -21,13 +21,14 @@ class Endereco {
 
   factory Endereco.fromJson(Map<String, dynamic> json) {
     return Endereco(
+      id: json['id'] ?? '',
       cep: json['cep'],
-      logradouro: json['logradouro'],
-      numeroLote: "", // Informado pelo usuário
-      complemento: json['complemento'] ?? "",
-      bairro: json['bairro'],
-      uf: json['uf'],
-      localidade: json['localidade'],
+      logradouro: json['logradouro'] ?? '',
+      numeroLote: json['numeroLote'] ?? '', // Usuário preenche posteriormente
+      complemento: json['complemento'] ?? '',
+      bairro: json['bairro'] ?? '',
+      uf: json['uf'] ?? '',
+      localidade: json['localidade'] ?? '',
     );
   }
 

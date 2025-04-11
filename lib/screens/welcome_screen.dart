@@ -1,17 +1,18 @@
+// lib/screens/welcome_screen.dart
 import 'package:flutter/material.dart';
-import 'cadastro_usuario_view.dart';
-import 'enderecos_view.dart'; // redireciona para a tela principal após login
-import '../controllers/usuario_controller.dart';
+import 'cadastro_usuario_screen.dart';
+import 'enderecos_screen.dart'; // tela principal após login
+import '../services/usuario_service.dart';
 
-class WelcomeView extends StatefulWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<WelcomeView> createState() => _WelcomeViewState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeViewState extends State<WelcomeView> {
-  final UsuarioController _controller = UsuarioController();
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  final UsuarioService _usuarioService = UsuarioService();
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
 
@@ -19,12 +20,12 @@ class _WelcomeViewState extends State<WelcomeView> {
     final login = _loginController.text;
     final senha = _senhaController.text;
 
-    final usuario = await _controller.authenticate(login, senha);
+    final usuario = await _usuarioService.authenticate(login, senha);
 
     if (usuario != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const EnderecosView()),
+        MaterialPageRoute(builder: (_) => const EnderecosScreen()),
       );
     } else {
       showDialog(
@@ -46,7 +47,7 @@ class _WelcomeViewState extends State<WelcomeView> {
   void _cadastrar() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => const CadastroUsuarioView()),
+      MaterialPageRoute(builder: (_) => const CadastroUsuarioScreen()),
     );
   }
 
