@@ -46,9 +46,9 @@ class _EditarEnderecoScreenState extends State<EditarEnderecoScreen> {
       final endereco = await _service.getEnderecoByCep(_cepController.text);
       setState(() {
         _logradouroController.text = endereco!.logradouro;
-        _bairroController.text = endereco!.bairro;
-        _localidadeController.text = endereco!.localidade;
-        _ufController.text = endereco!.uf;
+        _bairroController.text = endereco.bairro;
+        _localidadeController.text = endereco.localidade;
+        _ufController.text = endereco.uf;
       });
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(

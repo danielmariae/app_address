@@ -24,10 +24,10 @@ class _EnderecosScreenState extends State<EnderecosScreen> {
     _carregarEnderecos();
   }
 
-  void _carregarEnderecos() async {
-    final lista = await _service.getEnderecos();
+  Future<void> _carregarEnderecos() async {
+    await _service.carregarEnderecos();
     setState(() {
-      _enderecos = lista;
+      _enderecos = _service.enderecos;
     });
   }
 
@@ -109,16 +109,19 @@ class _EnderecosScreenState extends State<EnderecosScreen> {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: _enderecos.length,
-        itemBuilder: (context, index) {
-          final e = _enderecos[index];
-          return EnderecoCard(
-            endereco: e,
-            onEdit: () => _editarEndereco(e),
-            onDelete: () => _excluirEndereco(e.id!),
-          );
-        },
+      body: RefreshIndicator(
+        onRefresh: _carregarEnderecos,
+        child: ListView.builder(
+          itemCount: _enderecos.length,
+          itemBuilder: (context, index) {
+            final e = _enderecos[index];
+            return EnderecoCard(
+              endereco: e,
+              onEdit: () => _editarEndereco(e),
+              onDelete: () => _excluirEndereco(e.id!),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _adicionarEndereco,
